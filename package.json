@@ -33,6 +33,7 @@
     "rimraf": "^6.0.0",
     "turbo": "^2.3.0",
     "typescript": "^5.7.0",
+    "typescript-eslint": "^8.64.0",
     "vitest": "^3.0.0"
   }
 }
