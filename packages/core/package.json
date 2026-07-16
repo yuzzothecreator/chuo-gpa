@@ -1,0 +1,49 @@
+{
+  "name": "@chuo-gpa/core",
+  "version": "0.1.0",
+  "description": "The core academic calculation engine for Chuo-GPA",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
+  "keywords": [
+    "gpa",
+    "cgpa",
+    "calculator",
+    "tanzania",
+    "university",
+    "academic",
+    "grading",
+    "udsm",
+    "udom",
+    "iaa",
+    "tcu"
+  ],
+  "scripts": {
+    "build": "tsc --project tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "clean": "rimraf dist",
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix"
+  },
+  "dependencies": {
+    "@chuo-gpa/types": "workspace:*",
+    "@chuo-gpa/utils": "workspace:*",
+    "@chuo-gpa/university-rules": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0",
+    "rimraf": "^6.0.0"
+  }
+}

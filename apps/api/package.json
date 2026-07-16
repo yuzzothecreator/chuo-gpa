@@ -1,0 +1,33 @@
+{
+  "name": "@chuo-gpa/api",
+  "version": "0.1.0",
+  "private": true,
+  "description": "REST API for Chuo-GPA — powered by Fastify",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "tsc --project tsconfig.build.json",
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit",
+    "clean": "rimraf dist",
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix"
+  },
+  "dependencies": {
+    "@chuo-gpa/core": "workspace:*",
+    "@chuo-gpa/types": "workspace:*",
+    "@chuo-gpa/university-rules": "workspace:*",
+    "fastify": "^5.0.0",
+    "@fastify/cors": "^10.0.0",
+    "@fastify/rate-limit": "^10.0.0",
+    "@fastify/swagger": "^9.0.0",
+    "@fastify/swagger-ui": "^5.0.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0",
+    "tsx": "^4.19.0",
+    "rimraf": "^6.0.0"
+  }
+}

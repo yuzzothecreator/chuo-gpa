@@ -1,0 +1,22 @@
+{
+  "name": "@chuo-gpa/examples",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Examples for Chuo-GPA",
+  "type": "module",
+  "scripts": {
+    "start:basic": "tsx basic-usage.ts",
+    "start:multi-semester": "tsx multi-semester.ts",
+    "start:custom-university": "tsx custom-university.ts"
+  },
+  "dependencies": {
+    "@chuo-gpa/core": "workspace:*",
+    "@chuo-gpa/types": "workspace:*",
+    "@chuo-gpa/university-rules": "workspace:*",
+    "@chuo-gpa/udsm": "workspace:*"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}
