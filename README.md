@@ -1,55 +1,83 @@
 <p align="center">
-  <h1 align="center">🎓 CHUO-GPA</h1>
+  <h1 align="center">CHUO-GPA</h1>
   <p align="center">
     <strong>The Academic Calculation Engine for Tanzanian Universities</strong>
   </p>
 </p>
 
 <p align="center">
-  <a href="#installation">Installation</a> •
-  <a href="#quick-start">Quick Start</a> •
-  <a href="#supported-universities">Universities</a> •
-  <a href="#api">API</a> •
-  <a href="#contributing">Contributing</a>
+  <a href="https://www.npmjs.com/package/@chuo-gpa/core"><img alt="npm" src="https://img.shields.io/npm/v/@chuo-gpa/core.svg" /></a>
+  <a href="./LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-green.svg" /></a>
+  <a href="./docs/README.md"><img alt="Docs" src="https://img.shields.io/badge/docs-guide-0B3D2E" /></a>
+</p>
+
+<p align="center">
+  <a href="./docs/getting-started.md">Getting Started</a> ·
+  <a href="./docs/package-api.md">API Reference</a> ·
+  <a href="./docs/universities.md">Universities</a> ·
+  <a href="./docs/rest-api.md">REST API</a> ·
+  <a href="./docs/examples.md">Examples</a>
 </p>
 
 ---
 
 ## What is Chuo-GPA?
 
-**Chuo-GPA** is a free, open-source developer package and API for calculating GPA, CGPA, degree classification, and academic performance according to different university grading systems in Tanzania.
+**Chuo-GPA** is a free, open-source TypeScript toolkit for calculating **GPA**, **CGPA**, **degree classification**, and **grade conversion** using Tanzanian university grading rules.
 
-Built for developers integrating into:
+Use it in:
 
-- 🏫 Student portals & university systems
-- 📱 Mobile applications
-- 📚 Learning management systems
-- 🚀 Education startups
+- Student portals & university systems
+- Mobile / web apps
+- Learning management systems
+- Education startups
+
+### Full documentation
+
+Everything you need lives in the **[`docs/`](./docs/README.md)** folder:
+
+| Guide | Link |
+| ----- | ---- |
+| Install & first calculation | [Getting Started](./docs/getting-started.md) |
+| Functions, inputs, returns | [Package API](./docs/package-api.md) |
+| UDSM / UDOM / IAA scales | [Universities](./docs/universities.md) |
+| HTTP server endpoints | [REST API](./docs/rest-api.md) |
+| Copy-paste samples | [Examples](./docs/examples.md) |
+| Develop this repo | [Contributing](./docs/contributing.md) |
+
+---
 
 ## Features
 
-- ✅ **GPA Calculation** — Weighted grade point average
-- ✅ **CGPA Calculation** — Cumulative GPA across semesters
-- ✅ **Degree Classification** — First Class, Upper Second, Lower Second, Pass
-- ✅ **Grade Conversion** — Letter grades ↔ grade points ↔ percentage scores
-- ✅ **Multi-University Support** — UDSM, UDOM, IAA (and extensible)
-- ✅ **REST API** — Fastify-based API with Swagger documentation
-- ✅ **TypeScript** — Full type safety and IntelliSense support
-- ✅ **Zero Dependencies** — Core engine has no runtime dependencies
+- **GPA** — weighted grade point average
+- **CGPA** — cumulative GPA across semesters
+- **Classification** — First Class, Upper Second, Lower Second, Pass, Fail
+- **Grade conversion** — letter ↔ points ↔ percentage
+- **Multi-university** — UDSM, UDOM, IAA (+ custom rules)
+- **REST API** — Fastify + Swagger
+- **TypeScript** — full types on npm
+- **MIT licensed** — free for any project
+
+---
 
 ## Installation
 
-```bash
-# Install the core package
-pnpm add @chuo-gpa/core
+Packages are published on npm (`0.1.0+`):
 
-# Or use a university-specific package
-pnpm add @chuo-gpa/udsm
-pnpm add @chuo-gpa/udom
-pnpm add @chuo-gpa/iaa
+```bash
+npm install @chuo-gpa/core
+
+# Optional university helpers
+npm install @chuo-gpa/udsm
+# npm install @chuo-gpa/udom
+# npm install @chuo-gpa/iaa
 ```
 
-## Quick Start
+Also works with `pnpm add` / `yarn add`.
+
+---
+
+## Quick start
 
 ### Calculate GPA
 
@@ -57,6 +85,7 @@ pnpm add @chuo-gpa/iaa
 import { calculateGPA } from '@chuo-gpa/core';
 
 const result = calculateGPA({
+  universityId: 'udsm',
   courses: [
     { name: 'Database Security', credits: 10, grade: 'A' },
     { name: 'Software Engineering', credits: 10, grade: 'B+' },
@@ -64,9 +93,9 @@ const result = calculateGPA({
   ],
 });
 
-console.log(result.gpa); // 4.0
+console.log(result.gpa); // e.g. 4.0
 console.log(result.totalCredits); // 30
-console.log(result.courses); // Detailed per-course breakdown
+console.log(result.courses); // per-course breakdown
 ```
 
 ### Calculate CGPA
@@ -94,171 +123,126 @@ const result = calculateCGPA({
   ],
 });
 
-console.log(result.cgpa); // 4.5
-console.log(result.classification); // "First Class"
+console.log(result.cgpa);
+console.log(result.classification); // e.g. "First Class"
 ```
 
-### University-Specific Package
+### University-specific package
 
 ```typescript
-import { calculateGPA } from '@chuo-gpa/udsm';
+import { calculateGPA, getClassification } from '@chuo-gpa/udsm';
 
-// No need to specify universityId — pre-bound to UDSM
 const result = calculateGPA({
   courses: [{ name: 'Database Security', credits: 10, grade: 'A' }],
 });
+
+console.log(result.gpa);
+console.log(getClassification(result.gpa));
 ```
 
-## Supported Universities
+More samples: [docs/examples.md](./docs/examples.md) and [`examples/`](./examples/).
 
-| University                      | ID     | Package          |
-| ------------------------------- | ------ | ---------------- |
-| University of Dar es Salaam     | `udsm` | `@chuo-gpa/udsm` |
-| University of Dodoma            | `udom` | `@chuo-gpa/udom` |
-| Institute of Accountancy Arusha | `iaa`  | `@chuo-gpa/iaa`  |
+---
 
-### Grading Scale (TCU Standard)
+## Supported universities
 
-| Grade | Grade Point | Score Range |
-| ----- | ----------- | ----------- |
-| A     | 5.0         | 70–100%     |
-| B+    | 4.0         | 60–69%      |
-| B     | 3.0         | 50–59%      |
-| C     | 2.0         | 40–49%      |
-| D     | 1.0         | 35–39%      |
-| F     | 0.0         | 0–34%       |
+| University | ID | Package |
+| ---------- | -- | ------- |
+| University of Dar es Salaam | `udsm` | [`@chuo-gpa/udsm`](https://www.npmjs.com/package/@chuo-gpa/udsm) |
+| University of Dodoma | `udom` | [`@chuo-gpa/udom`](https://www.npmjs.com/package/@chuo-gpa/udom) |
+| Institute of Accountancy Arusha | `iaa` | [`@chuo-gpa/iaa`](https://www.npmjs.com/package/@chuo-gpa/iaa) |
 
-### Degree Classification
+### Grading scale (TCU standard)
 
-| Classification     | GPA Range |
-| ------------------ | --------- |
-| First Class        | 4.4 – 5.0 |
+| Grade | Point | Score |
+| ----- | ----- | ----- |
+| A | 5.0 | 70–100% |
+| B+ | 4.0 | 60–69% |
+| B | 3.0 | 50–59% |
+| C | 2.0 | 40–49% |
+| D | 1.0 | 35–39% |
+| F | 0.0 | 0–34% |
+
+### Degree classification
+
+| Classification | GPA |
+| -------------- | --- |
+| First Class | 4.4 – 5.0 |
 | Upper Second Class | 3.5 – 4.3 |
 | Lower Second Class | 2.7 – 3.4 |
-| Pass               | 2.0 – 2.6 |
+| Pass | 2.0 – 2.6 |
+
+Details: [docs/universities.md](./docs/universities.md).
+
+---
+
+## npm packages
+
+| Package | Role |
+| ------- | ---- |
+| [`@chuo-gpa/core`](https://www.npmjs.com/package/@chuo-gpa/core) | Main engine |
+| [`@chuo-gpa/types`](https://www.npmjs.com/package/@chuo-gpa/types) | Shared types |
+| [`@chuo-gpa/university-rules`](https://www.npmjs.com/package/@chuo-gpa/university-rules) | Rules registry |
+| [`@chuo-gpa/utils`](https://www.npmjs.com/package/@chuo-gpa/utils) | Utilities |
+| [`@chuo-gpa/udsm`](https://www.npmjs.com/package/@chuo-gpa/udsm) | UDSM helpers |
+| [`@chuo-gpa/udom`](https://www.npmjs.com/package/@chuo-gpa/udom) | UDOM helpers |
+| [`@chuo-gpa/iaa`](https://www.npmjs.com/package/@chuo-gpa/iaa) | IAA helpers |
+
+---
 
 ## REST API
 
-Start the API server:
-
 ```bash
-pnpm --filter api dev
+pnpm install
+pnpm build
+pnpm --filter @chuo-gpa/api dev
 ```
 
-### Endpoints
+| Method | Endpoint | Description |
+| ------ | -------- | ----------- |
+| `POST` | `/api/v1/gpa` | Calculate GPA |
+| `POST` | `/api/v1/cgpa` | Calculate CGPA |
+| `POST` | `/api/v1/classify` | Classify a GPA |
+| `GET` | `/api/v1/universities` | List universities |
+| `GET` | `/api/v1/universities/:id` | University rules |
+| `GET` | `/api/v1/health` | Health check |
+| `GET` | `/docs` | Swagger UI |
 
-| Method | Endpoint                   | Description                  |
-| ------ | -------------------------- | ---------------------------- |
-| `POST` | `/api/v1/gpa`              | Calculate GPA                |
-| `POST` | `/api/v1/cgpa`             | Calculate CGPA               |
-| `POST` | `/api/v1/classify`         | Get degree classification    |
-| `GET`  | `/api/v1/universities`     | List supported universities  |
-| `GET`  | `/api/v1/universities/:id` | Get university grading rules |
-| `GET`  | `/api/v1/health`           | Health check                 |
-| `GET`  | `/docs`                    | Swagger UI documentation     |
+Full guide: [docs/rest-api.md](./docs/rest-api.md).
 
-### Example Request
+---
 
-```bash
-curl -X POST http://localhost:3000/api/v1/gpa \
-  -H "Content-Type: application/json" \
-  -d '{
-    "universityId": "udsm",
-    "courses": [
-      { "name": "Database Security", "credits": 10, "grade": "A" },
-      { "name": "Software Engineering", "credits": 10, "grade": "B+" }
-    ]
-  }'
-```
-
-## Monorepo Structure
+## Monorepo structure
 
 ```
 chuo-gpa/
-├── apps/
-│   ├── api/                    # Fastify REST API
-│   └── documentation/          # TypeDoc documentation
+├── apps/api/              # Fastify REST API
 ├── packages/
-│   ├── core/                   # Main calculation engine
-│   ├── types/                  # Shared TypeScript types
-│   ├── university-rules/       # University grading rules registry
-│   ├── utils/                  # Shared utilities
-│   ├── udsm/                   # UDSM convenience package
-│   ├── udom/                   # UDOM convenience package
-│   └── iaa/                    # IAA convenience package
-├── tests/                      # Integration tests
-├── examples/                   # Usage examples
+│   ├── core/              # Calculation engine
+│   ├── types/             # Shared types
+│   ├── university-rules/  # Grading rules
+│   ├── utils/             # Utilities
+│   ├── udsm/ udom/ iaa/   # Convenience packages
+├── examples/              # Usage scripts
+├── docs/                  # Full documentation
 └── README.md
 ```
+
+---
 
 ## Development
 
 ```bash
-# Install dependencies
 pnpm install
-
-# Build all packages
 pnpm build
-
-# Run tests
-pnpm test
-
-# Run tests with coverage
-pnpm test:coverage
-
-# Type checking
-pnpm typecheck
-
-# Lint
-pnpm lint
-
-# Format
-pnpm format
-
-# Start API dev server
-pnpm --filter api dev
+pnpm check          # format + lint + typecheck + build + tests
+pnpm --filter @chuo-gpa/api dev
 ```
 
-## Adding a New University
+See [docs/contributing.md](./docs/contributing.md).
 
-1. Create a grading rule in `packages/university-rules/src/rules/`:
-
-```typescript
-import type { UniversityGradingRule } from '@chuo-gpa/types';
-
-export const myUniversityRule: UniversityGradingRule = {
-  universityId: 'my-uni',
-  universityName: 'My University',
-  maxGPA: 5.0,
-  gradeScale: [
-    { grade: 'A', gradePoint: 5.0, minScore: 70, maxScore: 100 },
-    // ... add all grades
-  ],
-  classificationScale: [
-    { classification: 'First Class', minGPA: 4.4, maxGPA: 5.0 },
-    // ... add all classifications
-  ],
-};
-```
-
-2. Register it in the registry.
-
-Or use the runtime API:
-
-```typescript
-import { registerUniversity } from '@chuo-gpa/university-rules';
-
-registerUniversity({
-  universityId: 'custom-uni',
-  universityName: 'Custom University',
-  // ... full rule definition
-});
-```
-
-## Contributing
-
-Contributions are welcome! Please read our contributing guidelines and submit pull requests.
+---
 
 ## License
 
-MIT © [Chuo-GPA Contributors](LICENSE)
+MIT © [Chuo-GPA Contributors](./LICENSE)
