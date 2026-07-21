@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "@chuo-gpa/core",
   "version": "0.1.0",
   "description": "The core academic calculation engine for Chuo-GPA",
@@ -12,9 +12,10 @@
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
     "gpa",
     "cgpa",

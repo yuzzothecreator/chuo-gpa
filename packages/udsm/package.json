@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "@chuo-gpa/udsm",
   "version": "0.1.0",
   "description": "UDSM (University of Dar es Salaam) GPA calculator — powered by Chuo-GPA",
@@ -12,16 +12,11 @@
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
-  "keywords": [
-    "gpa",
-    "udsm",
-    "tanzania",
-    "university",
-    "dar-es-salaam"
-  ],
+  "files": ["dist"],
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": ["gpa", "udsm", "tanzania", "university", "dar-es-salaam"],
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
     "typecheck": "tsc --noEmit",

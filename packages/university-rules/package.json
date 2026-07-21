@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "@chuo-gpa/university-rules",
   "version": "0.1.0",
   "description": "University grading rules registry for Chuo-GPA",
@@ -12,9 +12,10 @@
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
     "typecheck": "tsc --noEmit",

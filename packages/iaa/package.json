@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "@chuo-gpa/iaa",
   "version": "0.1.0",
   "description": "IAA (Institute of Accountancy Arusha) GPA calculator — powered by Chuo-GPA",
@@ -12,17 +12,11 @@
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
-  "keywords": [
-    "gpa",
-    "iaa",
-    "tanzania",
-    "university",
-    "arusha",
-    "accountancy"
-  ],
+  "files": ["dist"],
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": ["gpa", "iaa", "tanzania", "university", "arusha", "accountancy"],
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
     "typecheck": "tsc --noEmit",

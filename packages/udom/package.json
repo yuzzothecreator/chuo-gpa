@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "@chuo-gpa/udom",
   "version": "0.1.0",
   "description": "UDOM (University of Dodoma) GPA calculator — powered by Chuo-GPA",
@@ -12,16 +12,11 @@
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
-  "keywords": [
-    "gpa",
-    "udom",
-    "tanzania",
-    "university",
-    "dodoma"
-  ],
+  "files": ["dist"],
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": ["gpa", "udom", "tanzania", "university", "dodoma"],
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
     "typecheck": "tsc --noEmit",
