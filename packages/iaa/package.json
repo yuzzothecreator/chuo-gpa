@@ -1,6 +1,6 @@
-﻿{
+{
   "name": "@chuo-gpa/iaa",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "IAA (Institute of Accountancy Arusha) GPA calculator — powered by Chuo-GPA",
   "license": "MIT",
   "type": "module",

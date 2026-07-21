@@ -1,6 +1,6 @@
-﻿{
+{
   "name": "@chuo-gpa/core",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "The core academic calculation engine for Chuo-GPA",
   "license": "MIT",
   "type": "module",
