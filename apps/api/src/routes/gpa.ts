@@ -12,7 +12,10 @@ export async function gpaRoutes(app: FastifyInstance): Promise<void> {
         body: {
           type: 'object',
           properties: {
-            universityId: { type: 'string', description: 'University identifier (e.g., "udsm", "udom", "iaa")' },
+            universityId: {
+              type: 'string',
+              description: 'University identifier (e.g., "udsm", "udom", "iaa")',
+            },
             courses: {
               type: 'array',
               items: {

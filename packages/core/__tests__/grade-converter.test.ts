@@ -108,15 +108,15 @@ describe('scoreToGrade', () => {
 
   // Boundary tests
   it('should handle boundary scores correctly', () => {
-    expect(scoreToGrade(69).grade).toBe('B+');   // upper boundary of B+
-    expect(scoreToGrade(60).grade).toBe('B+');   // lower boundary of B+
-    expect(scoreToGrade(59).grade).toBe('B');    // upper boundary of B
-    expect(scoreToGrade(50).grade).toBe('B');    // lower boundary of B
-    expect(scoreToGrade(49).grade).toBe('C');    // upper boundary of C
-    expect(scoreToGrade(40).grade).toBe('C');    // lower boundary of C
-    expect(scoreToGrade(39).grade).toBe('D');    // upper boundary of D
-    expect(scoreToGrade(35).grade).toBe('D');    // lower boundary of D
-    expect(scoreToGrade(34).grade).toBe('F');    // upper boundary of F
+    expect(scoreToGrade(69).grade).toBe('B+'); // upper boundary of B+
+    expect(scoreToGrade(60).grade).toBe('B+'); // lower boundary of B+
+    expect(scoreToGrade(59).grade).toBe('B'); // upper boundary of B
+    expect(scoreToGrade(50).grade).toBe('B'); // lower boundary of B
+    expect(scoreToGrade(49).grade).toBe('C'); // upper boundary of C
+    expect(scoreToGrade(40).grade).toBe('C'); // lower boundary of C
+    expect(scoreToGrade(39).grade).toBe('D'); // upper boundary of D
+    expect(scoreToGrade(35).grade).toBe('D'); // lower boundary of D
+    expect(scoreToGrade(34).grade).toBe('F'); // upper boundary of F
   });
 });
 
@@ -137,5 +137,15 @@ describe('convertGrade', () => {
     const entry = convertGrade('B+', 'udsm');
     expect(entry.grade).toBe('B+');
     expect(entry.gradePoint).toBe(4.0);
+  });
+
+  it('should throw for invalid string grades', () => {
+    expect(() => convertGrade('Z')).toThrow(/not found/);
+    expect(() => convertGrade('A+')).toThrow(/Valid grades/);
+  });
+
+  it('should throw for out-of-range numeric scores', () => {
+    expect(() => convertGrade(-5)).toThrow(/between 0 and 100/);
+    expect(() => convertGrade(150)).toThrow(/between 0 and 100/);
   });
 });

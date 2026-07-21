@@ -18,6 +18,6 @@ console.log(`Total Grade Points: ${basicResult.totalGradePoints}`);
 console.log('\n--- Course Breakdown ---');
 for (const course of basicResult.courses) {
   console.log(
-    `${course.name}: Grade ${course.grade} (${course.gradePoint} pts) × ${course.credits} credits = ${course.qualityPoints} quality pts`
+    `${course.name}: Grade ${course.grade} (${course.gradePoint} pts) × ${course.credits} credits = ${course.qualityPoints} quality pts`,
   );
 }

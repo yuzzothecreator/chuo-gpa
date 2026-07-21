@@ -56,9 +56,7 @@ export function getUniversityRule(universityId: string): UniversityGradingRule {
 
   if (!rule) {
     const available = Array.from(registry.keys()).join(', ');
-    throw new Error(
-      `University "${universityId}" not found. Available universities: ${available}`,
-    );
+    throw new Error(`University "${universityId}" not found. Available universities: ${available}`);
   }
 
   return rule;

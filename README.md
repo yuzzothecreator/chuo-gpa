@@ -64,9 +64,9 @@ const result = calculateGPA({
   ],
 });
 
-console.log(result.gpa);            // 4.0
-console.log(result.totalCredits);   // 30
-console.log(result.courses);        // Detailed per-course breakdown
+console.log(result.gpa); // 4.0
+console.log(result.totalCredits); // 30
+console.log(result.courses); // Detailed per-course breakdown
 ```
 
 ### Calculate CGPA
@@ -94,8 +94,8 @@ const result = calculateCGPA({
   ],
 });
 
-console.log(result.cgpa);            // 4.5
-console.log(result.classification);  // "First Class"
+console.log(result.cgpa); // 4.5
+console.log(result.classification); // "First Class"
 ```
 
 ### University-Specific Package
@@ -105,39 +105,37 @@ import { calculateGPA } from '@chuo-gpa/udsm';
 
 // No need to specify universityId — pre-bound to UDSM
 const result = calculateGPA({
-  courses: [
-    { name: 'Database Security', credits: 10, grade: 'A' },
-  ],
+  courses: [{ name: 'Database Security', credits: 10, grade: 'A' }],
 });
 ```
 
 ## Supported Universities
 
-| University | ID | Package |
-|---|---|---|
-| University of Dar es Salaam | `udsm` | `@chuo-gpa/udsm` |
-| University of Dodoma | `udom` | `@chuo-gpa/udom` |
-| Institute of Accountancy Arusha | `iaa` | `@chuo-gpa/iaa` |
+| University                      | ID     | Package          |
+| ------------------------------- | ------ | ---------------- |
+| University of Dar es Salaam     | `udsm` | `@chuo-gpa/udsm` |
+| University of Dodoma            | `udom` | `@chuo-gpa/udom` |
+| Institute of Accountancy Arusha | `iaa`  | `@chuo-gpa/iaa`  |
 
 ### Grading Scale (TCU Standard)
 
 | Grade | Grade Point | Score Range |
-|-------|------------|-------------|
-| A     | 5.0        | 70–100%     |
-| B+    | 4.0        | 60–69%      |
-| B     | 3.0        | 50–59%      |
-| C     | 2.0        | 40–49%      |
-| D     | 1.0        | 35–39%      |
-| F     | 0.0        | 0–34%       |
+| ----- | ----------- | ----------- |
+| A     | 5.0         | 70–100%     |
+| B+    | 4.0         | 60–69%      |
+| B     | 3.0         | 50–59%      |
+| C     | 2.0         | 40–49%      |
+| D     | 1.0         | 35–39%      |
+| F     | 0.0         | 0–34%       |
 
 ### Degree Classification
 
-| Classification | GPA Range |
-|---|---|
-| First Class | 4.4 – 5.0 |
+| Classification     | GPA Range |
+| ------------------ | --------- |
+| First Class        | 4.4 – 5.0 |
 | Upper Second Class | 3.5 – 4.3 |
 | Lower Second Class | 2.7 – 3.4 |
-| Pass | 2.0 – 2.6 |
+| Pass               | 2.0 – 2.6 |
 
 ## REST API
 
@@ -149,15 +147,15 @@ pnpm --filter api dev
 
 ### Endpoints
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/api/v1/gpa` | Calculate GPA |
-| `POST` | `/api/v1/cgpa` | Calculate CGPA |
-| `POST` | `/api/v1/classify` | Get degree classification |
-| `GET` | `/api/v1/universities` | List supported universities |
-| `GET` | `/api/v1/universities/:id` | Get university grading rules |
-| `GET` | `/api/v1/health` | Health check |
-| `GET` | `/docs` | Swagger UI documentation |
+| Method | Endpoint                   | Description                  |
+| ------ | -------------------------- | ---------------------------- |
+| `POST` | `/api/v1/gpa`              | Calculate GPA                |
+| `POST` | `/api/v1/cgpa`             | Calculate CGPA               |
+| `POST` | `/api/v1/classify`         | Get degree classification    |
+| `GET`  | `/api/v1/universities`     | List supported universities  |
+| `GET`  | `/api/v1/universities/:id` | Get university grading rules |
+| `GET`  | `/api/v1/health`           | Health check                 |
+| `GET`  | `/docs`                    | Swagger UI documentation     |
 
 ### Example Request
 

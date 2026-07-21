@@ -1,5 +1,9 @@
 import type { GPAInput, GPAResult } from '@chuo-gpa/types';
-import { getUniversityRule, getDefaultRule, DEFAULT_UNIVERSITY_ID } from '@chuo-gpa/university-rules';
+import {
+  getUniversityRule,
+  getDefaultRule,
+  DEFAULT_UNIVERSITY_ID,
+} from '@chuo-gpa/university-rules';
 import { validateCourses } from '@chuo-gpa/utils';
 import { roundGPA } from '@chuo-gpa/utils';
 import { buildCourseResults, calculateTotalCredits, calculateQualityPoints } from './credits.js';
@@ -41,9 +45,7 @@ import { buildCourseResults, calculateTotalCredits, calculateQualityPoints } fro
  */
 export function calculateGPA(input: GPAInput): GPAResult {
   const universityId = input.universityId ?? DEFAULT_UNIVERSITY_ID;
-  const rule = input.universityId
-    ? getUniversityRule(input.universityId)
-    : getDefaultRule();
+  const rule = input.universityId ? getUniversityRule(input.universityId) : getDefaultRule();
 
   // Validate input
   validateCourses(input.courses, rule.gradeScale);

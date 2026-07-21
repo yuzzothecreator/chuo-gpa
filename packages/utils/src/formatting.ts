@@ -30,10 +30,7 @@ export function formatGPA(gpa: number, places: number = 2): string {
  * // "First Class (GPA: 4.50)"
  * ```
  */
-export function formatClassification(
-  classification: DegreeClassification,
-  gpa?: number,
-): string {
+export function formatClassification(classification: DegreeClassification, gpa?: number): string {
   if (gpa !== undefined) {
     return `${classification} (GPA: ${formatGPA(gpa)})`;
   }

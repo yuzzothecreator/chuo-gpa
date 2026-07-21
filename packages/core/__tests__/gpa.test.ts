@@ -163,9 +163,7 @@ describe('calculateGPA', () => {
 
   describe('validation errors', () => {
     it('should throw on empty courses array', () => {
-      expect(() =>
-        calculateGPA({ courses: [] }),
-      ).toThrow('At least one course is required');
+      expect(() => calculateGPA({ courses: [] })).toThrow('At least one course is required');
     });
 
     it('should throw on invalid grade', () => {

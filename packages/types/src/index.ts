@@ -15,9 +15,5 @@ export type {
   SemesterInput,
   SemesterResult,
 } from './gpa.js';
-export type {
-  UniversityGradingRule,
-  GradeScaleEntry,
-  ClassificationEntry,
-} from './university.js';
+export type { UniversityGradingRule, GradeScaleEntry, ClassificationEntry } from './university.js';
 export type { DegreeClassification } from './classification.js';

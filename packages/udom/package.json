@@ -12,8 +12,16 @@
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist"],
-  "keywords": ["gpa", "udom", "tanzania", "university", "dodoma"],
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "gpa",
+    "udom",
+    "tanzania",
+    "university",
+    "dodoma"
+  ],
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
     "typecheck": "tsc --noEmit",

@@ -12,8 +12,17 @@
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist"],
-  "keywords": ["gpa", "iaa", "tanzania", "university", "arusha", "accountancy"],
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "gpa",
+    "iaa",
+    "tanzania",
+    "university",
+    "arusha",
+    "accountancy"
+  ],
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
     "typecheck": "tsc --noEmit",

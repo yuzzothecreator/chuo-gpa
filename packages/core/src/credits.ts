@@ -34,10 +34,7 @@ export function calculateTotalCredits(courses: CourseInput[]): number {
  * ]); // 80
  * ```
  */
-export function calculateQualityPoints(
-  courses: CourseInput[],
-  universityId?: string,
-): number {
+export function calculateQualityPoints(courses: CourseInput[], universityId?: string): number {
   return courses.reduce((sum, course) => {
     const point = gradeToPoint(course.grade, universityId);
     return sum + point * course.credits;
@@ -52,10 +49,7 @@ export function calculateQualityPoints(
  * @param universityId - Optional university identifier
  * @returns Array of detailed course results
  */
-export function buildCourseResults(
-  courses: CourseInput[],
-  universityId?: string,
-): CourseResult[] {
+export function buildCourseResults(courses: CourseInput[], universityId?: string): CourseResult[] {
   return courses.map((course) => {
     const point = gradeToPoint(course.grade, universityId);
     return {

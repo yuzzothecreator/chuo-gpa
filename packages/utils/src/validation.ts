@@ -90,11 +90,7 @@ export function validateCourses(courses: CourseInput[], gradeScale: GradeScaleEn
 
   for (const course of courses) {
     if (!course.name || typeof course.name !== 'string') {
-      throw new ValidationError(
-        'Each course must have a non-empty name',
-        'name',
-        course.name,
-      );
+      throw new ValidationError('Each course must have a non-empty name', 'name', course.name);
     }
     validateCredits(course.credits, course.name);
     validateGrade(course.grade, gradeScale, course.name);
@@ -108,10 +104,7 @@ export function validateCourses(courses: CourseInput[], gradeScale: GradeScaleEn
  * @param gradeScale - The valid grade scale entries
  * @throws {ValidationError} If any semester has invalid data
  */
-export function validateSemesters(
-  semesters: SemesterInput[],
-  gradeScale: GradeScaleEntry[],
-): void {
+export function validateSemesters(semesters: SemesterInput[], gradeScale: GradeScaleEntry[]): void {
   if (!Array.isArray(semesters)) {
     throw new ValidationError('Semesters must be an array', 'semesters', semesters);
   }

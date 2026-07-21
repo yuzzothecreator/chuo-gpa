@@ -1,5 +1,9 @@
 import type { CGPAInput, CGPAResult, SemesterResult } from '@chuo-gpa/types';
-import { getUniversityRule, getDefaultRule, DEFAULT_UNIVERSITY_ID } from '@chuo-gpa/university-rules';
+import {
+  getUniversityRule,
+  getDefaultRule,
+  DEFAULT_UNIVERSITY_ID,
+} from '@chuo-gpa/university-rules';
 import { validateSemesters, roundGPA } from '@chuo-gpa/utils';
 import { buildCourseResults, calculateTotalCredits, calculateQualityPoints } from './credits.js';
 import { getClassification } from './classification.js';
@@ -42,9 +46,7 @@ import { getClassification } from './classification.js';
  */
 export function calculateCGPA(input: CGPAInput): CGPAResult {
   const universityId = input.universityId ?? DEFAULT_UNIVERSITY_ID;
-  const rule = input.universityId
-    ? getUniversityRule(input.universityId)
-    : getDefaultRule();
+  const rule = input.universityId ? getUniversityRule(input.universityId) : getDefaultRule();
 
   // Validate input
   validateSemesters(input.semesters, rule.gradeScale);

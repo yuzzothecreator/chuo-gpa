@@ -14,7 +14,13 @@
  * @packageDocumentation
  */
 
-import type { CourseInput, SemesterInput, GPAResult, CGPAResult, DegreeClassification } from '@chuo-gpa/types';
+import type {
+  CourseInput,
+  SemesterInput,
+  GPAResult,
+  CGPAResult,
+  DegreeClassification,
+} from '@chuo-gpa/types';
 import {
   calculateGPA as coreCalculateGPA,
   calculateCGPA as coreCalculateCGPA,

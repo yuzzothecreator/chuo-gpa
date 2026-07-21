@@ -19,9 +19,7 @@ export function gradeToPoint(grade: string, universityId?: string): number {
   const rule = universityId ? getUniversityRule(universityId) : getDefaultRule();
   const normalizedGrade = grade.trim().toUpperCase();
 
-  const entry = rule.gradeScale.find(
-    (e) => e.grade.toUpperCase() === normalizedGrade,
-  );
+  const entry = rule.gradeScale.find((e) => e.grade.toUpperCase() === normalizedGrade);
 
   if (!entry) {
     const validGrades = rule.gradeScale.map((e) => e.grade).join(', ');
@@ -63,9 +61,7 @@ export function scoreToGrade(score: number, universityId?: string): GradeScaleEn
   );
 
   if (!entry) {
-    throw new Error(
-      `No grade found for score ${score} in ${rule.universityName} grading scale`,
-    );
+    throw new Error(`No grade found for score ${score} in ${rule.universityName} grading scale`);
   }
 
   return entry;
@@ -86,10 +82,7 @@ export function scoreToGrade(score: number, universityId?: string): GradeScaleEn
  * convertGrade(85);    // { grade: 'A', gradePoint: 5.0, minScore: 70, maxScore: 100 }
  * ```
  */
-export function convertGrade(
-  input: string | number,
-  universityId?: string,
-): GradeScaleEntry {
+export function convertGrade(input: string | number, universityId?: string): GradeScaleEntry {
   if (typeof input === 'number') {
     return scoreToGrade(input, universityId);
   }
@@ -97,9 +90,7 @@ export function convertGrade(
   const rule = universityId ? getUniversityRule(universityId) : getDefaultRule();
   const normalizedGrade = input.trim().toUpperCase();
 
-  const entry = rule.gradeScale.find(
-    (e) => e.grade.toUpperCase() === normalizedGrade,
-  );
+  const entry = rule.gradeScale.find((e) => e.grade.toUpperCase() === normalizedGrade);
 
   if (!entry) {
     const validGrades = rule.gradeScale.map((e) => e.grade).join(', ');

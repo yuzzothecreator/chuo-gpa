@@ -36,9 +36,7 @@ describe('calculateCGPA', () => {
         semesters: [
           {
             name: 'Semester 1',
-            courses: [
-              { name: 'Course 1', credits: 15, grade: 'A' },
-            ],
+            courses: [{ name: 'Course 1', credits: 15, grade: 'A' }],
           },
           {
             name: 'Semester 2',
@@ -62,15 +60,11 @@ describe('calculateCGPA', () => {
         semesters: [
           {
             name: 'Semester 1',
-            courses: [
-              { name: 'Course 1', credits: 10, grade: 'A' },
-            ],
+            courses: [{ name: 'Course 1', credits: 10, grade: 'A' }],
           },
           {
             name: 'Semester 2',
-            courses: [
-              { name: 'Course 2', credits: 10, grade: 'C' },
-            ],
+            courses: [{ name: 'Course 2', credits: 10, grade: 'C' }],
           },
         ],
       });
@@ -174,9 +168,7 @@ describe('calculateCGPA', () => {
         universityId: 'udsm',
         semesters: [
           {
-            courses: [
-              { name: 'Course', credits: 10, grade: 'A' },
-            ],
+            courses: [{ name: 'Course', credits: 10, grade: 'A' }],
           },
         ],
       });
@@ -189,9 +181,7 @@ describe('calculateCGPA', () => {
 
   describe('validation', () => {
     it('should throw on empty semesters', () => {
-      expect(() =>
-        calculateCGPA({ semesters: [] }),
-      ).toThrow('At least one semester is required');
+      expect(() => calculateCGPA({ semesters: [] })).toThrow('At least one semester is required');
     });
 
     it('should throw on semester with empty courses', () => {

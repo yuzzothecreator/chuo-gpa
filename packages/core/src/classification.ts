@@ -15,10 +15,7 @@ import { getUniversityRule, getDefaultRule } from '@chuo-gpa/university-rules';
  * getClassification(1.5);          // "Fail"
  * ```
  */
-export function getClassification(
-  gpa: number,
-  universityId?: string,
-): DegreeClassification {
+export function getClassification(gpa: number, universityId?: string): DegreeClassification {
   const rule = universityId ? getUniversityRule(universityId) : getDefaultRule();
 
   for (const entry of rule.classificationScale) {
@@ -37,9 +34,6 @@ export function getClassification(
  * @param universityId - Optional university identifier
  * @returns The degree classification
  */
-export function classify(
-  gpa: number,
-  universityId?: string,
-): DegreeClassification {
+export function classify(gpa: number, universityId?: string): DegreeClassification {
   return getClassification(gpa, universityId);
 }

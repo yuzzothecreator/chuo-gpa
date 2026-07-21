@@ -19,6 +19,7 @@
     "lint:fix": "turbo run lint:fix",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,yaml,yml}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,yaml,yml}\"",
+    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm build && pnpm test:coverage",
     "clean": "turbo run clean && rimraf node_modules",
     "changeset": "changeset",
     "version-packages": "changeset version",
@@ -28,12 +29,13 @@
     "@changesets/cli": "^2.27.0",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",
+    "@vitest/coverage-v8": "^3.2.7",
     "eslint": "^9.0.0",
     "prettier": "^3.4.0",
     "rimraf": "^6.0.0",
     "turbo": "^2.3.0",
     "typescript": "^5.7.0",
     "typescript-eslint": "^8.64.0",
-    "vitest": "^3.0.0"
+    "vitest": "^3.2.7"
   }
 }
