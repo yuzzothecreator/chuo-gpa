@@ -106,10 +106,29 @@ describe('university-rules registry', () => {
           universityId: 'udsm',
           universityName: 'Duplicate',
           maxGPA: 5.0,
+          gradeScale: [{ grade: 'A', gradePoint: 5.0, minScore: 70, maxScore: 100 }],
+          classificationScale: [{ classification: 'First Class', minGPA: 4.4, maxGPA: 5.0 }],
+        }),
+      ).toThrow(/already registered/);
+    });
+
+    it('should reject invalid rules', () => {
+      expect(() =>
+        registerUniversity({
+          universityId: 'bad-uni',
+          universityName: 'Bad',
+          maxGPA: 5.0,
           gradeScale: [],
           classificationScale: [],
         }),
-      ).toThrow(/already registered/);
+      ).toThrow(/gradeScale/);
+    });
+
+    it('should return clones that cannot poison the registry', () => {
+      const rule = getUniversityRule('udsm');
+      rule.gradeScale.push({ grade: 'Z', gradePoint: 99 });
+      const again = getUniversityRule('udsm');
+      expect(again.gradeScale.find((e) => e.grade === 'Z')).toBeUndefined();
     });
   });
 

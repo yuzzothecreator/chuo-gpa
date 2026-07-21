@@ -58,6 +58,17 @@ describe('getClassification', () => {
     it('should return Fail for GPA 1.0', () => {
       expect(getClassification(1.0)).toBe('Fail');
     });
+
+    it('should classify former gap values correctly', () => {
+      expect(getClassification(4.35)).toBe('Upper Second Class');
+      expect(getClassification(3.45)).toBe('Lower Second Class');
+      expect(getClassification(2.65)).toBe('Pass');
+    });
+
+    it('should reject non-finite GPA', () => {
+      expect(() => getClassification(Number.NaN)).toThrow(/finite/);
+      expect(() => getClassification(Number.POSITIVE_INFINITY)).toThrow(/finite/);
+    });
   });
 
   describe('university-specific classification', () => {

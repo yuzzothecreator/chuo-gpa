@@ -53,12 +53,12 @@ console.log(result.courses); // per-course breakdown
 
 ### Course input shape
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ----------- |
-| `name` | `string` | Yes | Course title |
-| `credits` | `number` | Yes | Credit hours (must be > 0) |
-| `grade` | `string` | Yes | Letter grade: `A`, `B+`, `B`, `C`, `D`, `F` |
-| `score` | `number` | No | Percentage 0–100 (optional helper) |
+| Field     | Type     | Required | Description                                 |
+| --------- | -------- | -------- | ------------------------------------------- |
+| `name`    | `string` | Yes      | Course title                                |
+| `credits` | `number` | Yes      | Credit hours (must be > 0)                  |
+| `grade`   | `string` | Yes      | Letter grade: `A`, `B+`, `B`, `C`, `D`, `F` |
+| `score`   | `number` | No       | Percentage 0–100 (optional helper)          |
 
 ## 3. University-specific package
 

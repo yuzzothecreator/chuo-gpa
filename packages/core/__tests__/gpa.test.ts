@@ -198,5 +198,29 @@ describe('calculateGPA', () => {
         }),
       ).toThrow(/not found/);
     });
+
+    it('should reject infinite credits', () => {
+      expect(() =>
+        calculateGPA({
+          courses: [{ name: 'Course', credits: Number.POSITIVE_INFINITY, grade: 'A' }],
+        }),
+      ).toThrow(/finite/);
+    });
+
+    it('should reject null course entries', () => {
+      expect(() =>
+        calculateGPA({
+          courses: [null as unknown as { name: string; credits: number; grade: string }],
+        }),
+      ).toThrow(/invalid/i);
+    });
+
+    it('should reject whitespace-only course names', () => {
+      expect(() =>
+        calculateGPA({
+          courses: [{ name: '   ', credits: 10, grade: 'A' }],
+        }),
+      ).toThrow(/non-empty name/);
+    });
   });
 });

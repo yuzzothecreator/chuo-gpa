@@ -53,6 +53,9 @@ importers:
       '@chuo-gpa/university-rules':
         specifier: workspace:*
         version: link:../../packages/university-rules
+      '@chuo-gpa/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       '@fastify/cors':
         specifier: ^10.0.0
         version: 10.1.0

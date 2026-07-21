@@ -1,6 +1,7 @@
 import type { FastifyInstance } from 'fastify';
 import { calculateGPA } from '@chuo-gpa/core';
 import { GPARequestSchema } from '../schemas/index.js';
+import { toSafeClientError } from '../lib/errors.js';
 
 export async function gpaRoutes(app: FastifyInstance): Promise<void> {
   app.post(
@@ -11,20 +12,25 @@ export async function gpaRoutes(app: FastifyInstance): Promise<void> {
         tags: ['GPA'],
         body: {
           type: 'object',
+          additionalProperties: false,
           properties: {
             universityId: {
               type: 'string',
+              maxLength: 64,
               description: 'University identifier (e.g., "udsm", "udom", "iaa")',
             },
             courses: {
               type: 'array',
+              minItems: 1,
+              maxItems: 100,
               items: {
                 type: 'object',
+                additionalProperties: false,
                 properties: {
-                  name: { type: 'string' },
-                  credits: { type: 'number' },
-                  grade: { type: 'string' },
-                  score: { type: 'number' },
+                  name: { type: 'string', minLength: 1, maxLength: 200 },
+                  credits: { type: 'number', exclusiveMinimum: 0, maximum: 100 },
+                  grade: { type: 'string', minLength: 1, maxLength: 10 },
+                  score: { type: 'number', minimum: 0, maximum: 100 },
                 },
                 required: ['name', 'credits', 'grade'],
               },
@@ -60,10 +66,11 @@ export async function gpaRoutes(app: FastifyInstance): Promise<void> {
           data: result,
         });
       } catch (error) {
-        const message = error instanceof Error ? error.message : 'Unknown error';
-        return reply.status(400).send({
+        request.log.warn({ err: error }, 'GPA calculation failed');
+        const safe = toSafeClientError(error);
+        return reply.status(safe.status).send({
           success: false,
-          error: message,
+          error: safe.message,
         });
       }
     },

@@ -127,20 +127,15 @@ Low-level helpers used internally; available if you need partial calculations.
 Convenience wrappers. Same methods, university already set:
 
 ```typescript
-import {
-  calculateGPA,
-  calculateCGPA,
-  getClassification,
-  gradeToPoint,
-} from '@chuo-gpa/udsm';
+import { calculateGPA, calculateCGPA, getClassification, gradeToPoint } from '@chuo-gpa/udsm';
 ```
 
-| Function | Notes |
-| -------- | ----- |
-| `calculateGPA({ courses })` | No `universityId` needed |
-| `calculateCGPA({ semesters })` | No `universityId` needed |
-| `getClassification(gpa)` | Uses that university’s bands |
-| `gradeToPoint(grade)` | Uses that university’s scale |
+| Function                       | Notes                        |
+| ------------------------------ | ---------------------------- |
+| `calculateGPA({ courses })`    | No `universityId` needed     |
+| `calculateCGPA({ semesters })` | No `universityId` needed     |
+| `getClassification(gpa)`       | Uses that university’s bands |
+| `gradeToPoint(grade)`          | Uses that university’s scale |
 
 ---
 
@@ -159,14 +154,14 @@ import {
 } from '@chuo-gpa/university-rules';
 ```
 
-| Function | Description |
-| -------- | ----------- |
-| `listUniversities()` | List registered university IDs / metadata |
-| `getUniversityRule(id)` | Get full grading rule |
-| `hasUniversity(id)` | `true` if registered |
-| `registerUniversity(rule)` | Add a custom university at runtime |
-| `getDefaultRule()` | Default (TCU-style) rule |
-| `DEFAULT_UNIVERSITY_ID` | Default id constant |
+| Function                   | Description                               |
+| -------------------------- | ----------------------------------------- |
+| `listUniversities()`       | List registered university IDs / metadata |
+| `getUniversityRule(id)`    | Get full grading rule                     |
+| `hasUniversity(id)`        | `true` if registered                      |
+| `registerUniversity(rule)` | Add a custom university at runtime        |
+| `getDefaultRule()`         | Default (TCU-style) rule                  |
+| `DEFAULT_UNIVERSITY_ID`    | Default id constant                       |
 
 ### Custom university example
 
@@ -229,11 +224,11 @@ import type {
 
 Common thrown errors:
 
-| Situation | Example message |
-| --------- | --------------- |
-| Invalid letter grade | `Grade "Z" not found in ... Valid grades: A, B+, ...` |
-| Score out of range | `Score must be between 0 and 100` |
-| Unknown university | Thrown by registry when id is missing |
-| Empty / invalid credits | Validation errors from utils / API schemas |
+| Situation               | Example message                                       |
+| ----------------------- | ----------------------------------------------------- |
+| Invalid letter grade    | `Grade "Z" not found in ... Valid grades: A, B+, ...` |
+| Score out of range      | `Score must be between 0 and 100`                     |
+| Unknown university      | Thrown by registry when id is missing                 |
+| Empty / invalid credits | Validation errors from utils / API schemas            |
 
 Always wrap calculations in `try/catch` in UI apps.

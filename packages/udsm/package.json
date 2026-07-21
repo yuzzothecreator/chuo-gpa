@@ -12,11 +12,19 @@
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "publishConfig": {
     "access": "public"
   },
-  "keywords": ["gpa", "udsm", "tanzania", "university", "dar-es-salaam"],
+  "keywords": [
+    "gpa",
+    "udsm",
+    "tanzania",
+    "university",
+    "dar-es-salaam"
+  ],
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
     "typecheck": "tsc --noEmit",

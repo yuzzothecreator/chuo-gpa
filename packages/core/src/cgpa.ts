@@ -4,59 +4,60 @@ import {
   getDefaultRule,
   DEFAULT_UNIVERSITY_ID,
 } from '@chuo-gpa/university-rules';
-import { validateSemesters, roundGPA } from '@chuo-gpa/utils';
+import { validateSemesters, roundGPA, ValidationError } from '@chuo-gpa/utils';
 import { buildCourseResults, calculateTotalCredits, calculateQualityPoints } from './credits.js';
 import { getClassification } from './classification.js';
+
+function resolveUniversityId(universityId?: string): string {
+  if (typeof universityId !== 'string') {
+    return DEFAULT_UNIVERSITY_ID;
+  }
+  const trimmed = universityId.trim();
+  return trimmed.length > 0 ? trimmed : DEFAULT_UNIVERSITY_ID;
+}
 
 /**
  * Calculate CGPA (Cumulative Grade Point Average) across multiple semesters.
  *
  * Formula: CGPA = Σ(all gradePoint × credits across semesters) / Σ(all credits)
- *
- * @param input - The CGPA calculation input containing semesters and optional university ID
- * @returns Detailed CGPA result with per-semester breakdown and degree classification
- * @throws {ValidationError} If input data is invalid
- * @throws {Error} If the university is not found
- *
- * @example
- * ```typescript
- * const result = calculateCGPA({
- *   universityId: 'udsm',
- *   semesters: [
- *     {
- *       name: 'Year 1 Semester 1',
- *       courses: [
- *         { name: 'Programming I', credits: 10, grade: 'A' },
- *         { name: 'Mathematics I', credits: 10, grade: 'B+' },
- *       ],
- *     },
- *     {
- *       name: 'Year 1 Semester 2',
- *       courses: [
- *         { name: 'Programming II', credits: 10, grade: 'B+' },
- *         { name: 'Mathematics II', credits: 10, grade: 'A' },
- *       ],
- *     },
- *   ],
- * });
- *
- * console.log(result.cgpa);           // 4.5
- * console.log(result.classification); // "First Class"
- * ```
  */
 export function calculateCGPA(input: CGPAInput): CGPAResult {
-  const universityId = input.universityId ?? DEFAULT_UNIVERSITY_ID;
-  const rule = input.universityId ? getUniversityRule(input.universityId) : getDefaultRule();
+  if (!input || typeof input !== 'object') {
+    throw new ValidationError('CGPA input must be an object', 'input', input);
+  }
 
-  // Validate input
+  const universityId = resolveUniversityId(input.universityId);
+  const rule =
+    universityId === DEFAULT_UNIVERSITY_ID && !input.universityId?.trim()
+      ? getDefaultRule()
+      : getUniversityRule(universityId);
+
   validateSemesters(input.semesters, rule.gradeScale);
 
-  // Calculate per-semester results
   const semesters: SemesterResult[] = input.semesters.map((semester) => {
     const semesterCredits = calculateTotalCredits(semester.courses);
-    const semesterQualityPoints = calculateQualityPoints(semester.courses, input.universityId);
+    const semesterQualityPoints = calculateQualityPoints(semester.courses, universityId);
+
+    if (!Number.isFinite(semesterCredits) || semesterCredits <= 0) {
+      throw new ValidationError(
+        'Semester credits must be a finite number greater than 0',
+        'credits',
+      );
+    }
+    if (!Number.isFinite(semesterQualityPoints)) {
+      throw new ValidationError('Semester grade points must be a finite number', 'gradePoints');
+    }
+
     const semesterGPA = roundGPA(semesterQualityPoints / semesterCredits);
-    const courses = buildCourseResults(semester.courses, input.universityId);
+    if (!Number.isFinite(semesterGPA)) {
+      throw new ValidationError(
+        'Calculated semester GPA is not a finite number',
+        'gpa',
+        semesterGPA,
+      );
+    }
+
+    const courses = buildCourseResults(semester.courses, universityId);
 
     return {
       name: semester.name,
@@ -67,13 +68,22 @@ export function calculateCGPA(input: CGPAInput): CGPAResult {
     };
   });
 
-  // Calculate cumulative totals
   const totalCredits = semesters.reduce((sum, sem) => sum + sem.totalCredits, 0);
   const totalGradePoints = semesters.reduce((sum, sem) => sum + sem.totalGradePoints, 0);
-  const cgpa = roundGPA(totalGradePoints / totalCredits);
 
-  // Determine classification
-  const classification = getClassification(cgpa, input.universityId);
+  if (!Number.isFinite(totalCredits) || totalCredits <= 0) {
+    throw new ValidationError('Total credits must be a finite number greater than 0', 'credits');
+  }
+  if (!Number.isFinite(totalGradePoints)) {
+    throw new ValidationError('Total grade points must be a finite number', 'gradePoints');
+  }
+
+  const cgpa = roundGPA(totalGradePoints / totalCredits);
+  if (!Number.isFinite(cgpa)) {
+    throw new ValidationError('Calculated CGPA is not a finite number', 'cgpa', cgpa);
+  }
+
+  const classification = getClassification(cgpa, universityId);
 
   return {
     cgpa,
@@ -81,6 +91,6 @@ export function calculateCGPA(input: CGPAInput): CGPAResult {
     totalGradePoints,
     semesters,
     classification,
-    universityId,
+    universityId: rule.universityId,
   };
 }

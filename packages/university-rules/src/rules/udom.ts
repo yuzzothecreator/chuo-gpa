@@ -3,9 +3,7 @@ import type { UniversityGradingRule } from '@chuo-gpa/types';
 /**
  * University of Dodoma (UDOM) grading rule.
  *
- * UDOM follows the TCU standard 5-point grading scale.
- *
- * @see https://www.udom.ac.tz
+ * Classification bands are contiguous at 2-decimal GPA precision.
  */
 export const udomRule: UniversityGradingRule = {
   universityId: 'udom',
@@ -21,8 +19,8 @@ export const udomRule: UniversityGradingRule = {
   ],
   classificationScale: [
     { classification: 'First Class', minGPA: 4.4, maxGPA: 5.0 },
-    { classification: 'Upper Second Class', minGPA: 3.5, maxGPA: 4.3 },
-    { classification: 'Lower Second Class', minGPA: 2.7, maxGPA: 3.4 },
-    { classification: 'Pass', minGPA: 2.0, maxGPA: 2.6 },
+    { classification: 'Upper Second Class', minGPA: 3.5, maxGPA: 4.39 },
+    { classification: 'Lower Second Class', minGPA: 2.7, maxGPA: 3.49 },
+    { classification: 'Pass', minGPA: 2.0, maxGPA: 2.69 },
   ],
 };

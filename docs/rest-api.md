@@ -16,14 +16,14 @@ Interactive docs (Swagger): [http://localhost:3000/docs](http://localhost:3000/d
 
 ## Endpoints
 
-| Method | Path | Description |
-| ------ | ---- | ----------- |
-| `GET` | `/api/v1/health` | Health check |
-| `GET` | `/api/v1/universities` | List universities |
-| `GET` | `/api/v1/universities/:id` | One university’s rules |
-| `POST` | `/api/v1/gpa` | Calculate GPA |
-| `POST` | `/api/v1/cgpa` | Calculate CGPA |
-| `POST` | `/api/v1/classify` | Classify a GPA value |
+| Method | Path                       | Description            |
+| ------ | -------------------------- | ---------------------- |
+| `GET`  | `/api/v1/health`           | Health check           |
+| `GET`  | `/api/v1/universities`     | List universities      |
+| `GET`  | `/api/v1/universities/:id` | One university’s rules |
+| `POST` | `/api/v1/gpa`              | Calculate GPA          |
+| `POST` | `/api/v1/cgpa`             | Calculate CGPA         |
+| `POST` | `/api/v1/classify`         | Classify a GPA value   |
 
 ## POST `/api/v1/gpa`
 

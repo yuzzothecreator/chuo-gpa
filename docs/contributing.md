@@ -32,16 +32,16 @@ chuo-gpa/
 
 ## Scripts
 
-| Command | Purpose |
-| ------- | ------- |
-| `pnpm build` | Build all packages |
-| `pnpm test` | Run tests |
-| `pnpm test:coverage` | Tests + coverage thresholds |
-| `pnpm typecheck` | TypeScript check |
-| `pnpm lint` | ESLint |
-| `pnpm format` | Prettier write |
-| `pnpm check` | Full quality gate |
-| `pnpm --filter @chuo-gpa/api dev` | Start API |
+| Command                           | Purpose                     |
+| --------------------------------- | --------------------------- |
+| `pnpm build`                      | Build all packages          |
+| `pnpm test`                       | Run tests                   |
+| `pnpm test:coverage`              | Tests + coverage thresholds |
+| `pnpm typecheck`                  | TypeScript check            |
+| `pnpm lint`                       | ESLint                      |
+| `pnpm format`                     | Prettier write              |
+| `pnpm check`                      | Full quality gate           |
+| `pnpm --filter @chuo-gpa/api dev` | Start API                   |
 
 ## Pull requests
 

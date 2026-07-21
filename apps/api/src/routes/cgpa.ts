@@ -1,6 +1,7 @@
 import type { FastifyInstance } from 'fastify';
 import { calculateCGPA } from '@chuo-gpa/core';
 import { CGPARequestSchema } from '../schemas/index.js';
+import { toSafeClientError } from '../lib/errors.js';
 
 export async function cgpaRoutes(app: FastifyInstance): Promise<void> {
   app.post(
@@ -11,24 +12,31 @@ export async function cgpaRoutes(app: FastifyInstance): Promise<void> {
         tags: ['CGPA'],
         body: {
           type: 'object',
+          additionalProperties: false,
           properties: {
-            universityId: { type: 'string', description: 'University identifier' },
+            universityId: { type: 'string', maxLength: 64, description: 'University identifier' },
             semesters: {
               type: 'array',
+              minItems: 1,
+              maxItems: 40,
               items: {
                 type: 'object',
+                additionalProperties: false,
                 properties: {
-                  name: { type: 'string' },
+                  name: { type: 'string', maxLength: 100 },
                   year: { type: 'number' },
                   courses: {
                     type: 'array',
+                    minItems: 1,
+                    maxItems: 100,
                     items: {
                       type: 'object',
+                      additionalProperties: false,
                       properties: {
-                        name: { type: 'string' },
-                        credits: { type: 'number' },
-                        grade: { type: 'string' },
-                        score: { type: 'number' },
+                        name: { type: 'string', minLength: 1, maxLength: 200 },
+                        credits: { type: 'number', exclusiveMinimum: 0, maximum: 100 },
+                        grade: { type: 'string', minLength: 1, maxLength: 10 },
+                        score: { type: 'number', minimum: 0, maximum: 100 },
                       },
                       required: ['name', 'credits', 'grade'],
                     },
@@ -68,10 +76,11 @@ export async function cgpaRoutes(app: FastifyInstance): Promise<void> {
           data: result,
         });
       } catch (error) {
-        const message = error instanceof Error ? error.message : 'Unknown error';
-        return reply.status(400).send({
+        request.log.warn({ err: error }, 'CGPA calculation failed');
+        const safe = toSafeClientError(error);
+        return reply.status(safe.status).send({
           success: false,
-          error: message,
+          error: safe.message,
         });
       }
     },

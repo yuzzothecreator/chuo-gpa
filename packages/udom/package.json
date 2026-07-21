@@ -12,11 +12,19 @@
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "publishConfig": {
     "access": "public"
   },
-  "keywords": ["gpa", "udom", "tanzania", "university", "dodoma"],
+  "keywords": [
+    "gpa",
+    "udom",
+    "tanzania",
+    "university",
+    "dodoma"
+  ],
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
     "typecheck": "tsc --noEmit",

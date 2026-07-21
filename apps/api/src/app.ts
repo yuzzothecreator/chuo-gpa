@@ -10,6 +10,18 @@ import { classifyRoutes } from './routes/classify.js';
 import { universityRoutes } from './routes/universities.js';
 import { healthRoutes } from './routes/health.js';
 
+function resolveCorsOrigin(): boolean | string | string[] {
+  const raw = process.env['CORS_ORIGIN']?.trim();
+  if (!raw || raw === '*') {
+    // Default: reflect is disabled; allow common local frontends only
+    return ['http://localhost:5173', 'http://localhost:3000', 'http://127.0.0.1:5173'];
+  }
+  return raw
+    .split(',')
+    .map((origin) => origin.trim())
+    .filter(Boolean);
+}
+
 /**
  * Build and configure the Fastify application.
  */
@@ -18,16 +30,17 @@ export async function buildApp() {
     logger: {
       level: process.env['LOG_LEVEL'] ?? 'info',
     },
+    bodyLimit: 64 * 1024, // 64KB — calculator payloads should be small
+    requestTimeout: 10_000,
   });
 
-  // Register plugins
   await app.register(cors, {
-    origin: true,
+    origin: resolveCorsOrigin(),
     methods: ['GET', 'POST'],
   });
 
   await app.register(rateLimit, {
-    max: 100,
+    max: Number(process.env['RATE_LIMIT_MAX'] ?? 60),
     timeWindow: '1 minute',
   });
 
@@ -65,7 +78,6 @@ export async function buildApp() {
     },
   });
 
-  // Register routes
   await app.register(gpaRoutes, { prefix: '/api/v1' });
   await app.register(cgpaRoutes, { prefix: '/api/v1' });
   await app.register(classifyRoutes, { prefix: '/api/v1' });

@@ -12,11 +12,20 @@
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "publishConfig": {
     "access": "public"
   },
-  "keywords": ["gpa", "iaa", "tanzania", "university", "arusha", "accountancy"],
+  "keywords": [
+    "gpa",
+    "iaa",
+    "tanzania",
+    "university",
+    "arusha",
+    "accountancy"
+  ],
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
     "typecheck": "tsc --noEmit",

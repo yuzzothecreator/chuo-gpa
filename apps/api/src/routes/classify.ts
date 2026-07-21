@@ -1,6 +1,7 @@
 import type { FastifyInstance } from 'fastify';
 import { getClassification } from '@chuo-gpa/core';
 import { ClassifyRequestSchema } from '../schemas/index.js';
+import { toSafeClientError } from '../lib/errors.js';
 
 export async function classifyRoutes(app: FastifyInstance): Promise<void> {
   app.post(
@@ -11,9 +12,10 @@ export async function classifyRoutes(app: FastifyInstance): Promise<void> {
         tags: ['Classification'],
         body: {
           type: 'object',
+          additionalProperties: false,
           properties: {
-            gpa: { type: 'number', description: 'GPA value (0.0–5.0)' },
-            universityId: { type: 'string', description: 'University identifier' },
+            gpa: { type: 'number', minimum: 0, maximum: 5, description: 'GPA value (0.0–5.0)' },
+            universityId: { type: 'string', maxLength: 64, description: 'University identifier' },
           },
           required: ['gpa'],
         },
@@ -56,10 +58,11 @@ export async function classifyRoutes(app: FastifyInstance): Promise<void> {
           },
         });
       } catch (error) {
-        const message = error instanceof Error ? error.message : 'Unknown error';
-        return reply.status(400).send({
+        request.log.warn({ err: error }, 'Classification failed');
+        const safe = toSafeClientError(error);
+        return reply.status(safe.status).send({
           success: false,
-          error: message,
+          error: safe.message,
         });
       }
     },

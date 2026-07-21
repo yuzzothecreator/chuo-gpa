@@ -40,7 +40,7 @@ describe('gradeToPoint', () => {
   it('should throw for invalid grade', () => {
     expect(() => gradeToPoint('Z')).toThrow(/not found/);
     expect(() => gradeToPoint('A+')).toThrow(/not found/);
-    expect(() => gradeToPoint('')).toThrow(/not found/);
+    expect(() => gradeToPoint('')).toThrow(/non-empty|not found/);
   });
 
   it('should work with specific university', () => {
