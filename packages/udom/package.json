@@ -1,6 +1,6 @@
-﻿{
+{
   "name": "@chuo-gpa/udom",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "UDOM (University of Dodoma) GPA calculator — powered by Chuo-GPA",
   "license": "MIT",
   "type": "module",
